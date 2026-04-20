@@ -34,4 +34,6 @@ No external dependencies or build steps are required as PixiJS is loaded via CDN
 
 ## License
 
-This project is provided for educational and illustrative purposes.
+This project is licensed under the MIT License - see the [LICENSE] file for details.
+
+Copyright (c) 2026 Maksim Sterkis

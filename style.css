@@ -1,0 +1,206 @@
+ /* Base Reset & Typography */
+:root {
+    --ui-amber: #ffb000;
+    --ui-amber-dim: rgba(255, 176, 0, 0.3);
+    --ui-bg: rgba(10, 10, 12, 0.85);
+    --grid-color-1: #1a2b3c;
+    --grid-color-2: #2a3b4c;
+    --bg-color: #050608;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    color: var(--ui-amber);
+    user-select: none;
+}
+
+/* * LAYER 1: PixiJS Canvas Container
+ * Takes up the full screen, sits at the bottom.
+ */
+#canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* * LAYER 2: UI Overlay
+ * Covers the screen but lets clicks pass through to the canvas...
+ */
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none; /* Let mouse events fall through */
+    padding: 2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* * ...except for actual UI elements which catch clicks.
+ */
+.ui-panel {
+    pointer-events: auto; /* Catch mouse events */
+    background: var(--ui-bg);
+    border: 1px solid var(--ui-amber-dim);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 0 15px rgba(0,0,0,0.8), inset 0 0 10px var(--ui-amber-dim);
+    backdrop-filter: blur(4px);
+}
+
+/* --- NEW INFO PANEL CSS --- */
+.info-panel {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    transform: translate(calc(100% + 4rem), -50%); /* Hidden off-screen right */
+    width: 320px;
+    transition: transform 0.4s cubic-bezier(0.1, 0.8, 0.2, 1);
+    pointer-events: auto;
+    z-index: 5;
+}
+
+.info-panel.panel-open {
+    transform: translate(0, -50%); /* Slide in */
+}
+
+.hazard-stripe {
+    display: block;
+    height: 4px;
+    width: 100%;
+    background: repeating-linear-gradient(
+            45deg,
+            var(--ui-amber),
+            var(--ui-amber) 10px,
+            #000 10px,
+            #000 20px
+    );
+    margin: 0.5rem 0 1rem 0;
+    box-shadow: 0 0 8px var(--ui-amber-dim);
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dotted var(--ui-amber-dim);
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.2rem;
+    font-size: 0.9rem;
+}
+
+.stat-label {
+    opacity: 0.7;
+    letter-spacing: 1px;
+}
+
+.stat-value {
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--ui-amber-dim);
+}
+
+.btn-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+/* --- NEW TIME UI CSS --- */
+.time-panel {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    min-width: auto;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+}
+
+.time-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.ui-btn {
+    background: transparent;
+    border: 1px solid var(--ui-amber-dim);
+    color: var(--ui-amber);
+    padding: 0.4rem 0.8rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.ui-btn:hover, .ui-btn.active {
+    background: var(--ui-amber-dim);
+    box-shadow: 0 0 8px var(--ui-amber);
+    color: #fff;
+}
+
+#date-display {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+    min-width: 110px;
+    text-align: right;
+}
+
+#rate-display {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    letter-spacing: 1px;
+    min-width: 70px;
+}
+
+/* * LAYER 3: CRT Effects */
+#crt-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+    opacity: 0.8;
+    overflow: hidden;
+}
+
+/* The Grain */
+#crt-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    mix-blend-mode: overlay;
+}
+
+/* Stylized blinking cursor effect */
+.blink {
+    animation: blinker 1s linear infinite;
+}
+@keyframes blinker {
+    50% { opacity: 0; }
+}

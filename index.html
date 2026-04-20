@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar System Viewer</title>
+
+  <!-- PixiJS v7 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Bottom Layer: Canvas -->
+<div id="canvas-container"></div>
+
+<!-- Middle Layer: UI -->
+<div id="ui-layer">
+  <!-- NEW TIME CONTROLS -->
+  <div class="ui-panel time-panel">
+    <div id="date-display">CALCULATING...</div>
+    <div class="time-controls">
+      <button class="ui-btn" id="btn-rewind">◄◄</button>
+      <button class="ui-btn active" id="btn-play">■</button>
+      <button class="ui-btn" id="btn-ff">►►</button>
+    </div>
+    <div id="rate-display">1 D/S</div>
+  </div>
+
+  <!-- NEW INFO PANEL -->
+  <div id="info-panel" class="ui-panel info-panel">
+    <button class="ui-btn btn-close" id="btn-close-info">X</button>
+    <h2 id="info-title" style="margin:0; text-shadow: 0 0 8px var(--ui-amber);">PLANET</h2>
+    <div class="hazard-stripe"></div>
+
+    <div class="stat-row">
+      <span class="stat-label">CLASS</span>
+      <span class="stat-value" id="info-class">--</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">MASS</span>
+      <span class="stat-value" id="info-mass">--</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">GRAVITY</span>
+      <span class="stat-value" id="info-gravity">--</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">ORBITAL PER.</span>
+      <span class="stat-value" id="info-orbit">--</span>
+    </div>
+  </div>
+</div>
+
+<!-- Top Layer: Post-Processing / CRT -->
+<div id="crt-overlay"></div>
+
+<!-- Application Logic -->
+<script src="script.js"></script>
+</body>
+</html>

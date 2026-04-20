@@ -50,11 +50,16 @@
       <span class="stat-label">ORBITAL PER.</span>
       <span class="stat-value" id="info-orbit">--</span>
     </div>
+    <div id="moons-container" style="display: none; margin-top: 1rem;">
+      <button id="btn-toggle-moons" class="ui-btn" style="width: 100%; text-align: left;">+ MOONS</button>
+      <div id="moons-list" style="display: none; padding-top: 0.5rem;">
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- Top Layer: Post-Processing / CRT -->
-<div id="crt-overlay"></div>
+<canvas id="true-grain-overlay"></canvas>
 
 <!-- Application Logic -->
 <script src="script.js"></script>

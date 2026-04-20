@@ -9,7 +9,7 @@ A high-performance, interactive astronomical visualization tool built with PixiJ
 - **Dynamic Level of Detail**: Implements a fractal grid system and adaptive rendering for planetary moons and labels based on zoom depth.
 - **Time Controls**: Variable simulation speeds ranging from real-time to high-speed time-lapses, including rewind and pause functionality.
 - **Data Visualization**: Context-aware information panels providing technical specifications for each celestial body, including mass, gravity, and orbital periods.
-- **Visual Effects**: Custom CSS-based CRT post-processing, including scanlines, grain, and a stylized amber-phosphor UI.
+- **Visual Effects**: Custom CSS & JS Based CRT-Imax Film grain post-processing, including scanlines, grain, and a stylized amber UI.
 
 ## Technical Stack
 
